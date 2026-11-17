@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Quant Bot — BTC Up/Down 15m</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;background:#0b0e14;color:#e6e6e6;margin:0;padding:16px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:#888;font-size:13px;margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.card{background:#151a24;border:1px solid #232a38;border-radius:10px;padding:12px}
+.card .l{font-size:12px;color:#888}.card .v{font-size:22px;font-weight:700;margin-top:2px}
+.up{color:#3ddc84}.down{color:#ff5c5c}
+canvas{width:100%;height:180px;background:#151a24;border:1px solid #232a38;border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:16px}
+th,td{padding:6px 8px;border-bottom:1px solid #232a38;text-align:left}
+th{color:#888;font-size:12px}
+.note{color:#888;font-size:12px;margin-top:16px}
+</style>
+</head>
+<body>
+<h1>🔥 Paper Quant Bot — BTC Up/Down 15m</h1>
+<div class="sub">Gaya Bonereaper (Polymarket) · PAPER ONLY — uang virtual, tanpa modal beneran · update tiap 15 menit</div>
+<div class="cards">
+  <div class="card"><div class="l">Bankroll (modal $10)</div><div class="v" id="bank">$10.00</div></div>
+  <div class="card"><div class="l">Total PnL</div><div class="v" id="pnl">$0.00</div></div>
+  <div class="card"><div class="l">Trades / Win rate</div><div class="v" id="wr">0 / 0%</div></div>
+  <div class="card"><div class="l">Posisi terbuka</div><div class="v" id="open">0</div></div>
+</div>
+<canvas id="eq" width="800" height="360"></canvas>
+<table><thead><tr><th>Waktu (WIB)</th><th>Side</th><th>Entry</th><th>Hasil</th><th>PnL</th></tr></thead>
+<tbody id="trades"><tr><td colspan="5">Belum ada trade.</td></tr></tbody></table>
+<div class="note" id="upd"></div>
+<div class="note">Strategi: beli YES/NO cuma di harga 3–22 sen kalau harga pasar ≥5 sen lebih murah dari fair-prob model (momentum + volatilitas). Trade $5 (minimum order Polymarket), maks 1 posisi. Jual = hold sampai expiry (bayar $1 kalau menang, $0 kalau kalah). Backtest harga asli Polymarket belum bisa — market lama diarsipkan API-nya; validasi jalan lewat live paper trading ini + model test 48 jam (arah bener 71%, tapi itu BUKAN bukti profit karena harga pasar sudah mencerminkan arah).</div>
+<script>
+fetch('dashboard.json').then(r=>r.json()).then(d=>{
+  document.getElementById('bank').textContent='$'+d.bankroll.toFixed(2);
+  const p=document.getElementById('pnl'); p.textContent=(d.total_pnl>=0?'+$':'-$')+Math.abs(d.total_pnl).toFixed(2);
+  p.className='v '+(d.total_pnl>=0?'up':'down');
+  document.getElementById('wr').textContent=d.trades+' / '+(d.win_rate*100).toFixed(0)+'%';
+  document.getElementById('open').textContent=d.open_positions.length;
+  document.getElementById('upd').textContent='Update terakhir: '+new Date(d.updated_at*1000).toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB';
+  const eq=d.equity, cv=document.getElementById('eq'), ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
+  if(eq.length>1){
+    const vs=eq.map(e=>e.v), mn=Math.min(...vs,10), mx=Math.max(...vs,10);
+    const X=i=>20+i*(W-40)/Math.max(1,eq.length-1), Y=v=>H-20-(v-mn)*(H-40)/Math.max(0.01,mx-mn);
+    ctx.strokeStyle='#3ddc84'; ctx.lineWidth=2; ctx.beginPath();
+    eq.forEach((e,i)=>{ i?ctx.lineTo(X(i),Y(e.v)):ctx.moveTo(X(i),Y(e.v)); }); ctx.stroke();
+    ctx.strokeStyle='#232a38'; ctx.beginPath(); ctx.moveTo(20,Y(10)); ctx.lineTo(W-20,Y(10)); ctx.stroke();
+    ctx.fillStyle='#888'; ctx.font='12px sans-serif'; ctx.fillText('$'+mx.toFixed(2),4,14); ctx.fillText('$'+mn.toFixed(2),4,H-6);
+  }
+  if(d.recent_trades.length){
+    document.getElementById('trades').innerHTML=d.recent_trades.slice().reverse().map(t=>{
+      const dt=new Date(t.window_start*1000).toLocaleString('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',day:'2-digit',month:'short'});
+      return '<tr><td>'+dt+'</td><td>'+t.side+'</td><td>$'+t.entry_price+'</td><td class="'+(t.won?'up':'down')+'">'+(t.won?'MENANG':'KALAH')+'</td><td class="'+(t.pnl>=0?'up':'down')+'">'+(t.pnl>=0?'+$':'-$')+Math.abs(t.pnl).toFixed(2)+'</td></tr>';
+    }).join('');
+  }
+});
+</script>
+</body>
+</html>
