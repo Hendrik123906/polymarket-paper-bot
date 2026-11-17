@@ -3,7 +3,7 @@
 Paper-trading bot gaya Bonereaper: scalper market BTC naik/turun 15 menit di Polymarket.
 **PAPER ONLY — uang virtual, tanpa modal beneran, tanpa order asli.**
 
-- Modal virtual: $10 · Trade: $5 (minimum order Polymarket) · Maks 1 posisi
+- Modal virtual: $50 · Trade: $5 (minimum order Polymarket) · Maks 1 posisi
 - Beli YES/NO cuma di harga 3–22 sen, kalau harga pasar ≥5 sen lebih murah dari fair-prob model (momentum + volatilitas, normal-CDF)
 - Hold sampai expiry: bayar $1 kalau menang, $0 kalau kalah
 - Bot jalan tiap 15 menit; dashboard ini update tiap siklus

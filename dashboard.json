@@ -1,19 +1,19 @@
 {
- "updated_at": 1794910806,
- "bankroll": 10.0,
- "bankroll_start": 10.0,
+ "updated_at": 1794911140,
+ "bankroll": 50.0,
+ "bankroll_start": 50.0,
  "trades": 0,
  "wins": 0,
  "win_rate": 0,
  "total_pnl": 0,
  "equity": [
   {
-   "t": 1794910803,
-   "v": 10.0
+   "t": 1794911135,
+   "v": 50.0
   },
   {
-   "t": 1794910803,
-   "v": 10.0
+   "t": 1794911135,
+   "v": 50.0
   }
  ],
  "open_positions": [],
