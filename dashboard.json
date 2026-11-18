@@ -1,5 +1,5 @@
 {
- "updated_at": 1794962350,
+ "updated_at": 1794962646,
  "bankroll": 128.65,
  "bankroll_start": 50.0,
  "trades": 11,
@@ -490,9 +490,24 @@
   {
    "t": 1794962349,
    "v": 128.65
+  },
+  {
+   "t": 1794962643,
+   "v": 128.65
   }
  ],
- "open_positions": [],
+ "open_positions": [
+  {
+   "window_start": 1794961800,
+   "window_end": 1794962700,
+   "side": "DOWN",
+   "entry_price": 0.165,
+   "fair": 0.735,
+   "size": 5.0,
+   "shares": 30.3,
+   "btc_start": 64684.9
+  }
+ ],
  "recent_trades": [
   {
    "window_start": 1794934800,
