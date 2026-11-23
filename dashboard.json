@@ -1,5 +1,5 @@
 {
- "updated_at": 1795401271,
+ "updated_at": 1795401536,
  "bankroll": 1662.91,
  "bankroll_start": 50.0,
  "trades": 70,
@@ -7,10 +7,6 @@
  "win_rate": 0.843,
  "total_pnl": 1612.91,
  "equity": [
-  {
-   "t": 1795341525,
-   "v": 1461.27
-  },
   {
    "t": 1795341832,
    "v": 1461.27
@@ -806,9 +802,24 @@
   {
    "t": 1795401225,
    "v": 1662.91
+  },
+  {
+   "t": 1795401533,
+   "v": 1662.91
   }
  ],
- "open_positions": [],
+ "open_positions": [
+  {
+   "window_start": 1795401000,
+   "window_end": 1795401900,
+   "side": "DOWN",
+   "entry_price": 0.285,
+   "fair": 0.627,
+   "size": 5.0,
+   "shares": 17.54,
+   "btc_start": 60639.0
+  }
+ ],
  "recent_trades": [
   {
    "window_start": 1795119300,
