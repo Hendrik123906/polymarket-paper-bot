@@ -1,16 +1,12 @@
 {
- "updated_at": 1795407239,
- "bankroll": 1675.45,
+ "updated_at": 1795407549,
+ "bankroll": 1685.83,
  "bankroll_start": 50.0,
- "trades": 71,
- "wins": 60,
- "win_rate": 0.845,
- "total_pnl": 1625.45,
+ "trades": 72,
+ "wins": 61,
+ "win_rate": 0.847,
+ "total_pnl": 1635.83,
  "equity": [
-  {
-   "t": 1795347518,
-   "v": 1472.14
-  },
   {
    "t": 1795347825,
    "v": 1472.14
@@ -806,35 +802,14 @@
   {
    "t": 1795407235,
    "v": 1675.45
-  }
- ],
- "open_positions": [
-  {
-   "window_start": 1795406400,
-   "window_end": 1795407300,
-   "side": "UP",
-   "entry_price": 0.325,
-   "fair": 0.504,
-   "size": 5.0,
-   "shares": 15.38,
-   "btc_start": 61188.4
-  }
- ],
- "recent_trades": [
-  {
-   "window_start": 1795120200,
-   "window_end": 1795121100,
-   "side": "UP",
-   "entry_price": 0.285,
-   "fair": 0.804,
-   "size": 5.0,
-   "shares": 17.54,
-   "btc_start": 61831.7,
-   "btc_end": 62052.1,
-   "won": true,
-   "pnl": 12.54,
-   "bankroll_after": 432.15
   },
+  {
+   "t": 1795407530,
+   "v": 1685.83
+  }
+ ],
+ "open_positions": [],
+ "recent_trades": [
   {
    "window_start": 1795121100,
    "window_end": 1795122000,
@@ -1520,6 +1495,20 @@
    "won": true,
    "pnl": 12.54,
    "bankroll_after": 1675.45
+  },
+  {
+   "window_start": 1795406400,
+   "window_end": 1795407300,
+   "side": "UP",
+   "entry_price": 0.325,
+   "fair": 0.504,
+   "size": 5.0,
+   "shares": 15.38,
+   "btc_start": 61188.4,
+   "btc_end": 61304.7,
+   "won": true,
+   "pnl": 10.38,
+   "bankroll_after": 1685.83
   }
  ]
 }
