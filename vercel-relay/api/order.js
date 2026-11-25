@@ -19,11 +19,23 @@ module.exports = async (req, res) => {
   for await (const chunk of req) chunks.push(chunk);
   const rawBody = Buffer.concat(chunks).toString('utf8');
 
-  // Forward every header except hop-by-hop ones and our own auth header.
+  // Forward every header except hop-by-hop ones, our own auth header,
+  // and anything that leaks the CALLER's location. Vercel adds
+  // x-forwarded-for / x-real-ip with the original client IP (this VM's
+  // US egress); if those reach CLOB, its geoblock sees a US IP and 403s
+  // even though this function runs in Frankfurt. CLOB must only see
+  // this function's own Frankfurt egress IP.
+  const BLOCKED = new Set([
+    'host', 'connection', 'content-length', 'x-relay-auth',
+    'x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto',
+    'x-real-ip', 'cf-connecting-ip', 'forwarded',
+    'x-forwarded-port', 'x-forwarded-ssl',
+  ]);
   const headers = {};
   for (const [k, v] of Object.entries(req.headers)) {
     const lk = k.toLowerCase();
-    if (lk === 'host' || lk === 'connection' || lk === 'content-length' || lk === 'x-relay-auth') continue;
+    if (BLOCKED.has(lk)) continue;
+    if (lk.startsWith('x-vercel-') || lk.startsWith('cf-')) continue;
     headers[k] = v;
   }
   headers['content-type'] = 'application/json';
