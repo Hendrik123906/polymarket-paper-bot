@@ -1,0 +1,1 @@
+{"description":"Forwards POST /order to Polymarket CLOB from a non-US (Frankfurt) region to avoid the US geoblock. No dependencies.","name":"polymarket-order-relay","private":true,"version":"1.0.0"}
