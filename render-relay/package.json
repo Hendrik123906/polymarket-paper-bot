@@ -1,0 +1,1 @@
+{"description":"Forwards POST /order to Polymarket CLOB from a non-US region to avoid the US geoblock. No dependencies; plain Node http server.","main":"server.js","name":"polymarket-order-relay-render","private":true,"scripts":{"start":"node server.js"},"version":"1.0.0"}
